@@ -1,0 +1,399 @@
+<!--  
+Document   : login_cadastro
+Created on : 17 de nov. de 2025, 22:39:01
+Author     : TIAGO KAUAN , DIEGO HENRIQUE , NICOLY MARTINELI
+-->
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Cadastro</title>
+    <!-- Carrega o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Carrega a fonte Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Define a fonte Inter como padrão */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+    <script>
+        // Configuração customizada do Tailwind para as cores
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-purple-light': '#f2eefe', // Fundo do card
+                        'brand-purple': '#5b21b6',     // Roxo escuro (botões)
+                        'brand-purple-medium': '#a78bfa', // Roxo médio
+                        'brand-purple-faded': '#ede9fe', // Fundo do input
+                        'brand-purple-text': '#4c1d95',  // Texto roxo escuro
+                        'brand-green': '#22c55e',      // Botão Criar Conta (verde)
+                        'brand-blue': '#3b82f6',       // Box LGPD (azul)
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Container Principal Responsivo -->
+    <div class="min-h-screen flex flex-col md:flex-row">
+
+        <!-- 1. Coluna Esquerda (Decorativa, visível em desktop) -->
+        <div class="hidden md:flex md:w-1/2 bg-brand-purple flex-col justify-center items-center p-12 text-white shadow-lg z-10">
+            <svg class="w-1/3 max-w-[150px] mb-8 opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 1.944A11.954 11.954 0 012.166 5.09.69.69 0 012.065 6.1v3.42c0 3.19 1.59 6.22 4.11 8.24.08.06.16.12.24.18a.69.69 0 00.916 0c.08-.06.16-.12.24-.18C10.06 19.34 11.4 17.5 11.4 15.52V6.1a.69.69 0 01-.1-1.01A11.954 11.954 0 0110 1.944zM10 3.7c.69 0 1.36.1 2 .29V6.1h-4V4c.64-.19 1.31-.29 2-.29zM8.6 15.52V9.52h2.8v6c0 1.29-.48 2.5-1.4 3.48-1-.98-1.4-2.19-1.4-3.48z" clip-rule="evenodd" />
+            </svg>
+            <h1 class="text-5xl font-bold mb-4">Espólio Digital</h1>
+            <p class="text-xl text-center text-brand-purple-light/80">Seu legado digital, protegido e transferido com segurança.</p>
+        </div>
+
+        <!-- 2. Coluna Direita (Formulário, ocupa tela inteira no mobile) -->
+        <div class="w-full md:w-1/2 flex justify-center items-center bg-brand-purple-light p-6 sm:p-12 min-h-screen">
+            
+            <!-- Card de Autenticação (agora centralizado dentro da coluna) -->
+            <div class="w-full max-w-md mx-auto">
+        
+                <!-- Conteúdo Principal -->
+                <div>
+        
+                    <!-- TELA DE LOGIN (Inicial) -->
+                    <div id="login-screen">
+                        <div class="flex flex-col items-center mb-6">
+                            <!-- Ícone de Cadeado -->
+                            <div class="p-4 bg-orange-100 rounded-full mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-orange-400" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v2H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-1V6a4 4 0 00-4-4zm-2 6V6a2 2 0 114 0v2H8z" clip-rule="evenodd" />
+                                    <path d="M14.5 10.75a.75.75 0 00-1.5 0v1.5a.75.75 0 001.5 0v-1.5z" />
+                                </svg>
+                            </div>
+                            <h1 class="text-3xl font-bold text-brand-purple-text">
+                                Bem-vindo
+                            </h1>
+                            <!-- NOVO: Mensagem de Erro (controlada por JS) -->
+                            <p id="login-error" class="text-red-600 bg-red-100 p-3 rounded-lg text-sm hidden w-full text-center mt-4">
+                                <!-- Mensagem de erro aparecerá aqui -->
+                            </p>
+                        </div>
+        
+                        <!-- 
+                          ==========================================================
+                          ATUALIZADO: Formulário de login agora aponta para "LoginServlet"
+                          e 'onsubmit' foi removido.
+                          ==========================================================
+                        -->
+                        <form action="LoginServlet" method="POST">
+                            <div class="space-y-4">
+                                <div>
+                                    <label for="login-cpf" class="block text-sm font-medium text-brand-purple-text mb-1">CPF</label>
+                                    <input type="text" name="cpf" id="login-cpf" placeholder="Apenas números" required
+                                        maxlength="11" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11)"
+                                        class="w-full p-4 bg-brand-purple-faded rounded-lg border border-brand-purple-medium/30 placeholder-brand-purple-medium text-brand-purple-text focus:outline-none focus:ring-2 focus:ring-brand-purple">
+                                </div>
+                                <div>
+                                    <div class="flex justify-between items-center mb-1">
+                                        <label for="login-senha" class="block text-sm font-medium text-brand-purple-text">Senha</label>
+                                        <button type="button" onclick="showRecovery()" class="text-sm font-medium text-brand-purple hover:underline">
+                                            Esqueceu a senha?
+                                        </button>
+                                    </div>
+                                    <input type="password" name="senha" id="login-senha" placeholder="Sua senha" required
+                                        class="w-full p-4 bg-brand-purple-faded rounded-lg border border-brand-purple-medium/30 placeholder-brand-purple-medium text-brand-purple-text focus:outline-none focus:ring-2 focus:ring-brand-purple">
+                                </div>
+                            </div>
+        
+                            <div class="flex items-center my-6">
+                                <div class="flex items-center">
+                                    <input id="lembrar-me" name="lembrar-me" type="checkbox" class="h-4 w-4 text-brand-purple rounded border-gray-300 focus:ring-brand-purple">
+                                    <label for="lembrar-me" class="ml-2 block text-sm text-brand-purple-text">
+                                        Lembrar-me
+                                    </label>
+                                </div>
+                            </div>
+        
+                            <div class="space-y-3">
+                                <button type="submit"
+                                    class="w-full p-4 bg-brand-purple text-white rounded-lg font-bold text-lg hover:bg-opacity-90 transition-all">
+                                    Entrar
+                                </button>
+                                <button type="button" onclick="showRegister()"
+                                    class="w-full p-4 bg-brand-purple-faded text-brand-purple-text rounded-lg font-bold text-lg hover:bg-brand-purple-medium/30 transition-all">
+                                    Criar Conta
+                                </button>
+                            </div>
+        
+                            <p class="text-center text-brand-purple-medium text-sm mt-6 flex items-center justify-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                  <path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v2H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-1V6a4 4 0 00-4-4zm-2 6V6a2 2 0 114 0v2H8z" clip-rule="evenodd" />
+                                </svg>
+                                Login protegido com biometria
+                            </p>
+                        </form>
+                    </div>
+        
+                    <!-- TELA DE CADASTRO (Oculta e ATUALIZADA) -->
+                    <div id="register-screen" class="hidden">
+                        <h1 class="text-2xl font-bold text-brand-purple-text mb-6 text-center">
+                            Criar Conta Segura
+                        </h1>
+        
+                        <!-- Formulário de cadastro ATUALIZADO -->
+                        <!-- 1. 'action' aponta para o novo JSP -->
+                        <!-- 2. 'method' é POST -->
+                        <!-- 3. 'onsubmit' chama nossa nova função de validação -->
+                        <form id="form-cadastro" action="1 - usuario/usuario.jsp" method="POST" onsubmit="return validarCadastro(event);">
+                            <!-- CAMPOS ATUALIZADOS -->
+                            <div class="space-y-4">
+        
+                                <!-- Campo: Nome Completo -->
+                                <div>
+                                    <label for="reg-nome" class="block text-sm font-medium text-brand-purple-text mb-1">Nome Completo *</label>
+                                    <input type="text" name="nome" id="reg-nome" placeholder="Seu nome completo" required
+                                        class="w-full p-4 bg-brand-purple-faded rounded-lg border border-brand-purple-medium/30 placeholder-brand-purple-medium text-brand-purple-text focus:outline-none focus:ring-2 focus:ring-brand-purple">
+                                </div>
+                                
+                                <!-- Campo: CPF (Novo) -->
+                                <div>
+                                    <label for="reg-cpf" class="block text-sm font-medium text-brand-purple-text mb-1">CPF *</label>
+                                    <input type="text" name="cpf" id="reg-cpf" placeholder="Apenas números" required
+                                        maxlength="11" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11)"
+                                        class="w-full p-4 bg-brand-purple-faded rounded-lg border border-brand-purple-medium/30 placeholder-brand-purple-medium text-brand-purple-text focus:outline-none focus:ring-2 focus:ring-brand-purple">
+                                </div>
+                                
+                                <!-- Campo: Senha -->
+                                <div>
+                                    <label for="reg-senha" class="block text-sm font-medium text-brand-purple-text mb-1">Senha Segura *</label>
+                                    <input type="password" name="senha" id="reg-senha" placeholder="Crie uma senha forte" required
+                                        class="w-full p-4 bg-brand-purple-faded rounded-lg border border-brand-purple-medium/30 placeholder-brand-purple-medium text-brand-purple-text focus:outline-none focus:ring-2 focus:ring-brand-purple">
+                                </div>
+        
+                                <!-- Campo: Confirmar Senha -->
+                                <div>
+                                    <label for="reg-confirm-senha" class="block text-sm font-medium text-brand-purple-text mb-1">Confirmar Senha *</label>
+                                    <input type="password" name="confirmar_senha" id="reg-confirm-senha" placeholder="Confirme sua senha" required
+                                        class="w-full p-4 bg-brand-purple-faded rounded-lg border border-brand-purple-medium/30 placeholder-brand-purple-medium text-brand-purple-text focus:outline-none focus:ring-2 focus:ring-brand-purple">
+                                </div>
+                                
+                                <!-- NOVO: Mensagem de erro de validação -->
+                                <p id="reg-error" class="text-red-600 text-sm -mt-2 hidden"></p>
+
+                                <!-- CAMPO PALAVRA-CHAVE -->
+                                <div>
+                                    <label for="reg-palavra-chave" class="block text-sm font-medium text-brand-purple-text mb-1">Palavra-Chave de Recuperação *</label>
+                                    <input type="text" name="palavra_chave" id="reg-palavra-chave" placeholder="Uma palavra única para recuperar sua conta" required
+                                        class="w-full p-4 bg-brand-purple-faded rounded-lg border border-brand-purple-medium/30 placeholder-brand-purple-medium text-brand-purple-text focus:outline-none focus:ring-2 focus:ring-brand-purple">
+                                    <p class="text-xs text-brand-purple-text/70 mt-1">Guarde bem esta palavra. Ela será essencial caso você perca sua senha.</p>
+                                </div>
+
+                            </div>
+        
+                            <!-- Box LGPD -->
+                            <div class="bg-brand-blue text-white p-3 rounded-lg flex items-start gap-3 my-6 text-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 1.944A11.954 11.954 0 012.166 5.09.69.69 0 012.065 6.1v3.42c0 3.19 1.59 6.22 4.11 8.24.08.06.16.12.24.18a.69.69 0 00.916 0c.08-.06.16-.12.24-.18C10.06 19.34 11.4 17.5 11.4 15.52V6.1a.69.69 0 01-.1-1.01A11.954 11.954 0 0110 1.944zM10 3.7c.69 0 1.36.1 2 .29V6.1h-4V4c.64-.19 1.31-.29 2-.29zM8.6 15.52V9.52h2.8v6c0 1.29-.48 2.5-1.4 3.48-1-.98-1.4-2.19-1.4-3.48z" clip-rule="evenodd" />
+                                </svg>
+                                <span>
+                                    <strong>LGPD:</strong> Dados criptografados AES-256 e usados apenas para gestão do legado.
+                                </span>
+                            </div>
+        
+                            <!-- Checkbox Termos -->
+                            <div class="flex items-center mb-6">
+                                <input id="termos" name="termos" type="checkbox" required
+                                    class="h-4 w-4 text-brand-purple rounded border-gray-300 focus:ring-brand-purple">
+                                <label for="termos" class="ml-2 block text-sm text-brand-purple-text">
+                                    Aceito os termos e política de privacidade
+                                </label>
+                            </div>
+        
+                            <!-- Botões Ação -->
+                            <div class="space-y-3">
+                                <button type="submit"
+                                    class="w-full p-4 bg-brand-green text-white rounded-lg font-bold text-lg hover:bg-opacity-90 transition-all">
+                                    Criar Conta
+                                </button>
+                                <button type="button" onclick="showLogin()"
+                                    class="w-full p-4 bg-brand-purple text-white rounded-lg font-bold text-lg hover:bg-opacity-90 transition-all">
+                                    Já tenho conta
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- ======================================= -->
+                    <!-- ===== TELA DE RECUPERAÇÃO (ATUALIZADA) ===== -->
+                    <!-- ======================================= -->
+                    <div id="recovery-screen" class="hidden">
+                        <h1 class="text-2xl font-bold text-brand-purple-text mb-6 text-center">
+                            Recuperar Senha
+                        </h1>
+        
+                        <!-- Formulário de Recuperação ATUALIZADO -->
+                        <!-- 1. 'action' aponta para o novo JSP de recuperação -->
+                        <!-- 2. 'method' é POST -->
+                        <!-- 3. 'onsubmit' chama a nova validação 'validarRecuperacao' -->
+                        <form id="form-recuperacao" action="1 - usuario/recuperar_senha.jsp" method="POST" onsubmit="return validarRecuperacao(event);">
+                            <div class="space-y-4">
+                                
+                                <p class="text-sm text-brand-purple-text/80 text-center">Insira seu CPF e sua palavra-chave de recuperação para redefinir sua senha.</p>
+
+                                <!-- Campo: CPF (ATUALIZADO) -->
+                                <div>
+                                    <label for="rec-cpf" class="block text-sm font-medium text-brand-purple-text mb-1">CPF *</label>
+                                    <input type="text" name="cpf" id="rec-cpf" placeholder="Apenas números" required
+                                        maxlength="11" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11)"
+                                        class="w-full p-4 bg-brand-purple-faded rounded-lg border border-brand-purple-medium/30 placeholder-brand-purple-medium text-brand-purple-text focus:outline-none focus:ring-2 focus:ring-brand-purple">
+                                </div>
+                                
+                                <!-- Campo: Palavra-Chave -->
+                                <div>
+                                    <label for="rec-palavra-chave" class="block text-sm font-medium text-brand-purple-text mb-1">Palavra-Chave de Recuperação *</label>
+                                    <input type="text" name="palavra_chave" id="rec-palavra-chave" placeholder="Sua palavra-chave secreta" required
+                                        class="w-full p-4 bg-brand-purple-faded rounded-lg border border-brand-purple-medium/30 placeholder-brand-purple-medium text-brand-purple-text focus:outline-none focus:ring-2 focus:ring-brand-purple">
+                                </div>
+
+                                <hr class="border-t border-brand-purple-medium/20 my-4">
+                                
+                                <!-- Campo: Nova Senha -->
+                                <div>
+                                    <label for="rec-senha" class="block text-sm font-medium text-brand-purple-text mb-1">Nova Senha *</label>
+                                    <!-- ATUALIZADO: 'name' para 'senha_nova' -->
+                                    <input type="password" name="senha_nova" id="rec-senha" placeholder="Crie uma nova senha forte" required
+                                        class="w-full p-4 bg-brand-purple-faded rounded-lg border border-brand-purple-medium/30 placeholder-brand-purple-medium text-brand-purple-text focus:outline-none focus:ring-2 focus:ring-brand-purple">
+                                </div>
+        
+                                <!-- Campo: Confirmar Nova Senha -->
+                                <div>
+                                    <label for="rec-confirm-senha" class="block text-sm font-medium text-brand-purple-text mb-1">Confirmar Nova Senha *</label>
+                                    <!-- ATUALIZADO: 'name' para 'confirmar_senha_nova' -->
+                                    <input type="password" name="confirmar_senha_nova" id="rec-confirm-senha" placeholder="Confirme sua nova senha" required
+                                        class="w-full p-4 bg-brand-purple-faded rounded-lg border border-brand-purple-medium/30 placeholder-brand-purple-medium text-brand-purple-text focus:outline-none focus:ring-2 focus:ring-brand-purple">
+                                </div>
+
+                                <!-- NOVO: Mensagem de erro de validação -->
+                                <p id="rec-error" class="text-red-600 text-sm -mt-2 hidden"></p>
+
+                            </div>
+        
+                            <!-- Botões Ação -->
+                            <div class="space-y-3 mt-8">
+                                <button type="submit"
+                                    class="w-full p-4 bg-brand-green text-white rounded-lg font-bold text-lg hover:bg-opacity-90 transition-all">
+                                    Redefinir Senha
+                                </button>
+                                <button type="button" onclick="showLogin()"
+                                    class="w-full p-4 bg-brand-purple-faded text-brand-purple-text rounded-lg font-bold text-lg hover:bg-brand-purple-medium/30 transition-all">
+                                    Cancelar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- ===== FIM DA TELA DE RECUPERAÇÃO ===== -->
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <script>
+        // --- ATUALIZADO: Script para mostrar erro de login ---
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const params = new URLSearchParams(window.location.search);
+            if (params.has('erro')) {
+                const errorMsg = document.getElementById('login-error');
+                if(params.get('erro') == '1') {
+                    errorMsg.innerText = 'CPF ou senha inválidos. Tente novamente.';
+                } else {
+                    errorMsg.innerText = 'Ocorreu um erro inesperado no servidor.';
+                }
+                errorMsg.classList.remove('hidden');
+            }
+        });
+
+
+        // --- JavaScript para alternar telas (ATUALIZADO) ---
+        
+        const loginScreen = document.getElementById('login-screen');
+        const registerScreen = document.getElementById('register-screen');
+        const recoveryScreen = document.getElementById('recovery-screen'); // Nova tela
+
+        function showLogin() {
+            loginScreen.classList.remove('hidden');
+            registerScreen.classList.add('hidden');
+            recoveryScreen.classList.add('hidden'); // Oculta recuperação
+        }
+
+        function showRegister() {
+            loginScreen.classList.add('hidden');
+            registerScreen.classList.remove('hidden');
+            recoveryScreen.classList.add('hidden'); // Oculta recuperação
+        }
+        
+        function showRecovery() {
+            loginScreen.classList.add('hidden');
+    
+            registerScreen.classList.add('hidden');
+            recoveryScreen.classList.remove('hidden'); // Mostra recuperação
+        }
+        
+        /**
+         * SCRIPT DE VALIDAÇÃO DE CADASTRO
+         * Valida o formulário de cadastro antes de enviar para o JSP.
+         * Impede o envio se as senhas não baterem.
+         */
+        function validarCadastro(event) {
+            const senha = document.getElementById('reg-senha').value;
+            const confirmaSenha = document.getElementById('reg-confirm-senha').value;
+            const errorMsg = document.getElementById('reg-error');
+
+            if (senha !== confirmaSenha) {
+                // Impede o envio do formulário
+                event.preventDefault(); 
+                errorMsg.innerText = 'As senhas não conferem. Tente novamente.';
+                errorMsg.classList.remove('hidden'); // Mostra a mensagem de erro
+                return false;
+            }
+
+            // Se as senhas forem iguais
+            errorMsg.classList.add('hidden'); // Oculta a mensagem de erro
+            return true; // Permite o envio
+        }
+
+        /**
+         * NOVO SCRIPT
+         * Valida o formulário de RECUPERAÇÃO antes de enviar para o JSP.
+         * Impede o envio se as NOVAS senhas não baterem.
+         */
+        function validarRecuperacao(event) {
+            const senha = document.getElementById('rec-senha').value;
+            const confirmaSenha = document.getElementById('rec-confirm-senha').value;
+            const errorMsg = document.getElementById('rec-error');
+
+            if (senha !== confirmaSenha) {
+                // Impede o envio do formulário
+                event.preventDefault(); 
+                errorMsg.innerText = 'As novas senhas não conferem. Tente novamente.';
+                errorMsg.classList.remove('hidden'); // Mostra a mensagem de erro
+                return false;
+            }
+
+            // Se as senhas forem iguais
+            errorMsg.classList.add('hidden'); // Oculta a mensagem de erro
+            return true; // Permite o envio
+        }
+
+    </script>
+
+</body>
+</html>

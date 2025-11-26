@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/User/Documents/EspolioDigital/web/1%20-%20usuario/1%20-%20tela%20geral.jsp</file>
+            <file>file:/C:/Users/User/Documents/EspolioDigital/web/1%20-%20usuario/2%20-%20tela%20geral.jsp</file>
+            <file>file:/C:/Users/User/Documents/EspolioDigital/web/1%20-%20usuario/recuperar_senha.jsp</file>
+            <file>file:/C:/Users/User/Documents/EspolioDigital/web/1%20-%20usuario/sucesso_usuario.jsp</file>
+            <file>file:/C:/Users/User/Documents/EspolioDigital/web/1%20-%20usuario/usuario.jsp</file>
+            <file>file:/C:/Users/User/Documents/EspolioDigital/web/2%20-%20ativodigital/1%20-%20ativodigital.jsp</file>
+            <file>file:/C:/Users/User/Documents/EspolioDigital/web/3%20-%20herdeiro/1%20-%20herdeiro.jsp</file>
+            <file>file:/C:/Users/User/Documents/EspolioDigital/web/3%20-%20herdeiro/sucesso_herdeiro.jsp</file>
+            <file>file:/C:/Users/User/Documents/EspolioDigital/web/login_cadastro.html</file>
+            <file>file:/C:/Users/User/Documents/EspolioDigital/src/java/config/ConectaDB.java</file>
+            <file>file:/C:/Users/User/Documents/EspolioDigital/src/java/config/CryptoUtil.java</file>
+            <file>file:/C:/Users/User/Documents/EspolioDigital/src/java/config/HashUtil.java</file>
+            <file>file:/C:/Users/User/Documents/EspolioDigital/src/java/controller/AtivoDigitalServlet.java</file>
+            <file>file:/C:/Users/User/Documents/EspolioDigital/src/java/controller/CarregarFotoServlet.java</file>
+            <file>file:/C:/Users/User/Documents/EspolioDigital/src/java/controller/EditarPerfilServlet.java</file>
+            <file>file:/C:/Users/User/Documents/EspolioDigital/src/java/controller/HerdeiroServlet.java</file>
+            <file>file:/C:/Users/User/Documents/EspolioDigital/src/java/controller/LegadoServlet.java</file>
+            <file>file:/C:/Users/User/Documents/EspolioDigital/src/java/controller/LoginServlet.java</file>
+            <file>file:/C:/Users/User/Documents/EspolioDigital/src/java/controller/LogoutServlet.java</file>
+            <file>file:/C:/Users/User/Documents/EspolioDigital/src/java/model/AtivoDigital.java</file>
+            <file>file:/C:/Users/User/Documents/EspolioDigital/src/java/model/Herdeiro.java</file>
+            <file>file:/C:/Users/User/Documents/EspolioDigital/src/java/model/LegadoAgrupado.java</file>
+            <file>file:/C:/Users/User/Documents/EspolioDigital/src/java/model/LegadoDTO.java</file>
+            <file>file:/C:/Users/User/Documents/EspolioDigital/src/java/model/SolicitacaoLiberacao.java</file>
+            <file>file:/C:/Users/User/Documents/EspolioDigital/src/java/model/Usuario.java</file>
+            <file>file:/C:/Users/User/Documents/EspolioDigital/src/java/model/DAO/AtivoDigitalDAO.java</file>
+            <file>file:/C:/Users/User/Documents/EspolioDigital/src/java/model/DAO/HerdeiroDAO.java</file>
+            <file>file:/C:/Users/User/Documents/EspolioDigital/src/java/model/DAO/SolicitacaoDAO.java</file>
+            <file>file:/C:/Users/User/Documents/EspolioDigital/src/java/model/DAO/UsuarioDAO.java</file>
+        </group>
+    </open-files>
+</project-private>
